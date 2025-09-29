@@ -26,5 +26,52 @@ public class Main {
 
         int input;
 
+        //MENU LOOP
+
+        do{
+            System.out.println("===Menu===");
+            System.out.println("1) List all\n2) Search by title\n3) Search by author \n4) Add a book\n5) Update publisher (by ISBN) \n6)  Delete book (by ISBN) \n7) Show statistics\n 0) QUIT");
+
+            input = scnr.nextInt();
+
+            if(input == 1){ //List all
+                for(int i = 0; i < libraryCount; i++){
+                    Book current = library.get(i);
+                    current.toString();
+                }
+            }else if(input == 2){ //Search by title
+                System.out.println("Enter Name: ");
+                String lookFor = scnr.nextLine();
+                for(int i = 0; i < libraryCount; i++){
+                    Book current = library.get(i);
+                    String currName = current.getName();
+                    if(currName.equalsIgnoreCase(lookFor)){
+                        current.toString();
+                    }
+                }
+            }else if(input == 3){ //search by author
+                System.out.println("Enter Author's Name: ");
+                String lookFor = scnr.nextLine();
+                for(int i = 0; i < libraryCount; i++){
+                    Book current = library.get(i);
+                    String currName = current.getAuthor();
+                    if(currName.equalsIgnoreCase(lookFor)){
+                        current.toString();
+                    }
+                }
+            }else if(input == 4){ // add book
+
+            }else if(input == 5){ //update publisher (by isbn)
+
+            }else if(input == 6){ // delete
+
+            }else if(input == 7){ // show stats
+
+            }else if(input == 0){ //QUIT
+                System.exit(0);
+            }
+
+        }while(input != 0);
+
     }
 }

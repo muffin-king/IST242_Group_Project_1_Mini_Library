@@ -2,17 +2,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    public static ArrayList<Book> library = new ArrayList<>();
+    //TODO literally everything
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
-        ArrayList<Book> library = new ArrayList<>();
+        //load data
         //load data TODO: fix long input on Book
-        Book book0 = new Book("Clean Code", "Robert C. Martin", 2008, "Prentice Hall", 	"9780132350884");
+        Book book0 = new Book("Clean Code", "Robert C. Martin", 2008, "Prentice Hall", "9780132350884");
         Book book1 = new Book("Effective Java", "Joshua Bloch", 2018, "Addison-Wesley", "9780134685991");
         Book book2 = new Book ("Introduction to Algorithms", "Cormen, Leiserson, Rivest, Stein", 2009, "MIT Press", "9780262033848"); //4
         Book book3 = new Book("Design Patterns", "Cormen, Leiserson, Rivest, Stein", 1994, "Addison-Wesley", "9780201633610"); //3)
         Book book4 = new Book("Head First Java", "Kathy Sierra, Bert Bates", 2005, "O'Reilly", "9780596009205"); //4
         Book book5 = new Book("Java Concurrency in Practice", "Goetz et al.", 2006, "Addison-Wesley", "9780321349606"); //5
-
         //add books to library array
         library.add(book0); //0
         library.add(book1); //1
@@ -21,15 +22,17 @@ public class Main {
         library.add(book4); //4
         library.add(book5); //5
 
-        int libraryCount = 5; //arraylist length
+        int libraryCount = library.size(); //arraylist length
+
         int input;
 
         //MENU LOOP
         do{
             System.out.println("===Menu===");
-            System.out.println("1) List all\n2) Search by title\n3) Search by author \n4) Add a book\n5) Update publisher (by ISBN) \n6)  Delete book (by ISBN) \n7) Show statistics\n 0) QUIT");
+            System.out.println("1) List all\n2) Search by title\n3) Search by author \n4) Add a book\n5) Update publisher (by ISBN) \n6) Delete book (by ISBN) \n7) Show statistics\n0) QUIT");
 
             input = scnr.nextInt();
+            scnr.nextLine();
 
             if(input == 1){ //List all
                 for(int i = 0; i < libraryCount; i++){
@@ -37,7 +40,7 @@ public class Main {
                     current.toString();
                 }
             }else if(input == 2){ //Search by title
-                System.out.println("Enter Name: ");
+                System.out.print("Enter Name: ");
                 String lookFor = scnr.nextLine();
                 for(int i = 0; i < libraryCount; i++){
                     Book current = library.get(i);
@@ -68,38 +71,37 @@ public class Main {
                 scnr.nextLine();
 
                 do {
-                    System.out.println("Enter title: ");
+                    System.out.print("Enter title: ");
                     title = scnr.nextLine();
                     valid = nullValidation(title);
                 }while(!valid);
                 do {
-                    System.out.println("Enter author: ");
+                    System.out.print("Enter author: ");
                     author = scnr.nextLine();
                     valid = nullValidation(author);
                 }while(!valid);
                 do {
-                    System.out.println("Enter year: ");
+                    System.out.print("Enter year: ");
                     year = scnr.nextInt();
+                    scnr.nextLine();
                     valid = yearValidation(year);
                 }while(!valid);
                 scnr.nextLine();
                 do{
-                    System.out.println("Enter publisher: ");
+                    System.out.print("Enter publisher: ");
                     publisher = scnr.nextLine();
                     valid = nullValidation(publisher);
                 }while(!valid);
                 do{
-                    System.out.println("Enter ISBN: ");
+                    System.out.print("Enter ISBN: ");
                     isbn = scnr.nextLine();
-                    valid = isbnValidation(isbn, library);
+                    valid = isbnValidation(isbn);
                 }while(!valid);
 
 
 
                 Book add = new Book(title, author, year, publisher, isbn);
-                library.add(add); /* the object can be named
-                 whatever, even the same thing since we won't be accessing the name,
-                 just the library location (unless im wrong lmao pls say something if so) */
+                library.add(add);
             }else if(input == 5){ //TODO: update publisher (by isbn)
                 scnr.nextLine();
                 System.out.println("Enter ISBN of book to update: ");
@@ -130,7 +132,8 @@ public class Main {
 
             }else if(input == 6){ // delete
                 System.out.println("Enter ISBN of book to delete: ");
-                String lookFor = scnr.nextLine();
+                String lookFor = scnr.next();
+
                 for(int i = 0; i < libraryCount; i++){
                     Book current = library.get(i);
                     String currISBN = current.getISBN();
@@ -167,25 +170,23 @@ public class Main {
         return valid;
     }
 
-    public static boolean isbnValidation(String isbn, ArrayList<Book> library){ //SHould be finished
-
-        String cleaned = isbn.replaceAll("[-\\s]", "");
-
-        if (!cleaned.matches("\\d+")){
-            System.out.println("Please enter a valid ISBN.");
-            return false;
+    public static boolean isbnValidation(String isbn){ //TODO
+        boolean valid = false;
+        int step1 = 0;
+        //ISBNs must be unique AND must be exactly 10 or 13 digits (ignore spaces/dashes)
+        if(isbn.length() == 10 || isbn.length() == 13){
+            step1 = 1;
         }
-
-        if(!(cleaned.length() == 10 || cleaned.length() == 13)){
-            System.out.println("Please enter a valid length ISBN.");
-            return false;
-        }
-        for (Book b:  library){
-            if (b.getISBN() == isbn){
-                System.out.print("This ISBN exists already ");
+        for (int i = 0; i < library.size(); i++) {
+            Book current = library.get(i);
+            String currISBN = current.getISBN();
+            if(currISBN.equalsIgnoreCase(isbn)){
                 return false;
             }
         }
-        return true;
+        if(step1 == 1){
+            valid = true;
+        }
+        return valid;
     }
 }

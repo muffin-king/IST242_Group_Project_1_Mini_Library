@@ -141,10 +141,30 @@ public class Main {
                     }
                 }
 
-            }else if(input == 7){
+            } else if(input == 7) { // stats
 
+                int earliest = book0.getYear();
+                int latest = book0.getYear();
                 for(Book book : library) {
-                    System.out.println(book);
+                    if(book.getYear() < earliest) earliest = book.getYear();
+                    if(book.getYear() > latest) latest = book.getYear();
+                }
+
+                System.out.println("Earliest publication year: " + earliest);
+                System.out.println("Latest publication year: " + latest);
+
+                ArrayList<String> publishers = new ArrayList<>();
+                for(Book book : library) {
+                    if(!publishers.contains(book.getPublisher())) {
+                        publishers.add(book.getPublisher());
+                        int count = 0;
+                        for (Book bookB : library) {
+                            if (bookB.getPublisher().equalsIgnoreCase(book.getPublisher())) {
+                                count++;
+                            }
+                        }
+                        System.out.println(book.getPublisher() + ": " + count + " books");
+                    }
                 }
 
             }else if(input == 0){ //QUIT

@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
         //load data
-        //load data TODO: fix long input on Book
+        //load data
         Book book0 = new Book("Clean Code", "Robert C. Martin", 2008, "Prentice Hall", "9780132350884");
         Book book1 = new Book("Effective Java", "Joshua Bloch", 2018, "Addison-Wesley", "9780134685991");
         Book book2 = new Book ("Introduction to Algorithms", "Cormen, Leiserson, Rivest, Stein", 2009, "MIT Press", "9780262033848"); //4
@@ -37,7 +37,7 @@ public class Main {
             if(input == 1){ //List all
                 for(int i = 0; i < libraryCount; i++){
                     Book current = library.get(i);
-                    current.toString();
+                    System.out.println(current);
                 }
             }else if(input == 2){ //Search by title
                 System.out.print("Enter Name: ");
@@ -46,7 +46,7 @@ public class Main {
                     Book current = library.get(i);
                     String currName = current.getName();
                     if(currName.equalsIgnoreCase(lookFor)){
-                        current.toString();
+                        System.out.println(current);
                     }
                 }
             }else if(input == 3){ //search by author
@@ -56,7 +56,7 @@ public class Main {
                     Book current = library.get(i);
                     String currName = current.getAuthor();
                     if(currName.equalsIgnoreCase(lookFor)){
-                        current.toString();
+                        System.out.println(current);
                     }
                 }
             }else if(input == 4){ // add book
@@ -86,7 +86,6 @@ public class Main {
                     scnr.nextLine();
                     valid = yearValidation(year);
                 }while(!valid);
-                scnr.nextLine();
                 do{
                     System.out.print("Enter publisher: ");
                     publisher = scnr.nextLine();
@@ -142,7 +141,11 @@ public class Main {
                     }
                 }
 
-            }else if(input == 7){ //TODOD: show stats
+            }else if(input == 7){
+
+                for(Book book : library) {
+                    System.out.println(book);
+                }
 
             }else if(input == 0){ //QUIT
                 System.exit(0);

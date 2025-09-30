@@ -56,8 +56,7 @@ public class Book {
     //TODO
     // Return in the format: name | author | year | publisher | isbn
     public String toString() {
-         System.out.println(name + " | " + author + " | " + year + " | " + publisher + " | " + isbn);
-        return null;
+        return name + " | " + author + " | " + year + " | " + publisher + " | " + isbn;
     }
 
     //Copied from our design doc, but this method would likely be in whatever class manages the entire list of books

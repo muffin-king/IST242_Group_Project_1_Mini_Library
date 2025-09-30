@@ -163,7 +163,7 @@ public class Main {
                                 count++;
                             }
                         }
-                        System.out.println(book.getPublisher() + ": " + count + " books");
+                        System.out.println(book.getPublisher() + ": " + count + " book(s)");
                     }
                 }
 

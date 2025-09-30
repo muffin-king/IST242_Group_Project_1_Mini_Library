@@ -3,9 +3,9 @@ public class Book {
     private String author;
     private int year;
     private String publisher;
-    private long isbn;
+    private String isbn;
 
-    public Book(String name, String author, int year, String publisher, long isbn) {
+    public Book(String name, String author, int year, String publisher, String isbn) {
         this.name = name;
         this.author = author;
         this.year = year;
@@ -45,17 +45,18 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public long getISBN() {
+    public String getISBN() {
         return isbn;
     }
 
-    public void setISBN(long isbn) {
+    public void setISBN(String isbn) {
         this.isbn = isbn;
     }
 
     //TODO
     // Return in the format: name | author | year | publisher | isbn
     public String toString() {
+         System.out.println(name + " | " + author + " | " + year + " | " + publisher + " | " + isbn);
         return null;
     }
 

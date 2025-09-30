@@ -67,6 +67,9 @@ public class Main {
                 String isbn;
                 libraryCount++;
                 boolean valid = false;
+
+                scnr.nextLine();
+
                 do {
                     System.out.print("Enter title: ");
                     title = scnr.nextLine();
@@ -83,6 +86,7 @@ public class Main {
                     scnr.nextLine();
                     valid = yearValidation(year);
                 }while(!valid);
+                scnr.nextLine();
                 do{
                     System.out.print("Enter publisher: ");
                     publisher = scnr.nextLine();
@@ -94,15 +98,42 @@ public class Main {
                     valid = isbnValidation(isbn);
                 }while(!valid);
 
+
+
                 Book add = new Book(title, author, year, publisher, isbn);
-                library.add(add); /* the object can be named
-                 whatever, even the same thing since we wont be accessing the name,
-                 just the library location (unless im wrong lmao pls say something if so) */
+                library.add(add);
             }else if(input == 5){ //TODO: update publisher (by isbn)
+                scnr.nextLine();
+                System.out.println("Enter ISBN of book to update: ");
+                String isbnInput = scnr.nextLine();
+                String cleanISBN = isbnInput.replaceAll("[-\\s]", ""); //cleans isbn from user
+                boolean found = false;
+
+                for (Book b: library){
+                    if (b.getISBN().equals(cleanISBN)){
+                        found = true;
+                        System.out.println("Enter the new publisher");
+                        String newPublisher = scnr.nextLine();
+
+                        while (newPublisher.isBlank()){ //makes sure the user actually inputs something
+                            System.out.println("Please enter the new publisher, cannot be blank");
+                            newPublisher = scnr.nextLine();
+                        }
+
+                        b.setPublisher(newPublisher); //replaces old publisher with new one
+                        System.out.println("Publisher update success!");
+                    }
+                }
+                if (!found){
+                    System.out.println("ISBN is not in the library, please try again or make sure its already in the library!");
+                }
+
+
 
             }else if(input == 6){ // delete
                 System.out.println("Enter ISBN of book to delete: ");
                 String lookFor = scnr.next();
+
                 for(int i = 0; i < libraryCount; i++){
                     Book current = library.get(i);
                     String currISBN = current.getISBN();

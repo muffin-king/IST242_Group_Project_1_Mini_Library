@@ -29,12 +29,13 @@ public class Main {
 
         //MENU LOOP
         do{
-            System.out.println("===Menu===");
-            System.out.println("1) List all\n2) Search by title\n3) Search by author \n4) Add a book\n5) Update publisher (by ISBN) \n6) Delete book (by ISBN) \n7) Show statistics\n0) QUIT");
 
+            System.out.println("\n===Menu===");
+            System.out.println("1) List all\n2) Search by title\n3) Search by author \n4) Add a book\n5) Update publisher (by ISBN) \n6) Delete book (by ISBN) \n7) Show statistics\n0) QUIT");
+            System.out.print("Enter your choice: ");
             input = scnr.nextInt();
             scnr.nextLine();
-
+            System.out.println();
             if(input == 1){ //List all
                 for(int i = 0; i < library.size(); i++){
                     Book current = library.get(i);
@@ -69,7 +70,6 @@ public class Main {
 
                 boolean valid = false;
 
-                scnr.nextLine();
 
                 do {
                     System.out.print("Enter title: ");
@@ -103,8 +103,7 @@ public class Main {
                 Book add = new Book(title, author, year, publisher, isbn);
                 library.add(add);
             }else if(input == 5){ //TODO: update publisher (by isbn)
-                scnr.nextLine();
-                System.out.println("Enter ISBN of book to update: ");
+                System.out.print("Enter ISBN of book to update: ");
                 String isbnInput = scnr.nextLine();
                 String cleanISBN = isbnInput.replaceAll("[-\\s]", ""); //cleans isbn from user
                 boolean found = false;
@@ -112,11 +111,11 @@ public class Main {
                 for (Book b: library){
                     if (b.getISBN().equals(cleanISBN)){
                         found = true;
-                        System.out.println("Enter the new publisher");
+                        System.out.print("Enter the new publisher: ");
                         String newPublisher = scnr.nextLine();
 
                         while (newPublisher.isBlank()){ //makes sure the user actually inputs something
-                            System.out.println("Please enter the new publisher, cannot be blank");
+                            System.out.print("Please enter the new publisher, cannot be blank");
                             newPublisher = scnr.nextLine();
                         }
 
@@ -132,7 +131,7 @@ public class Main {
 
             }else if(input == 6){ // delete
 
-                System.out.println("Enter ISBN of book to delete: ");
+                System.out.print("Enter ISBN of book to delete: ");
                 String lookFor = scnr.nextLine().replaceAll("[-\\s]","");
 
                 boolean found = false;

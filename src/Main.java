@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static ArrayList<Book> library = new ArrayList<>();
-    //TODO literally everything
+
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
         //load data
@@ -22,7 +22,8 @@ public class Main {
         library.add(book4); //4
         library.add(book5); //5
 
-        int libraryCount = library.size(); //arraylist length
+        //didn't need libraryCount = library.size()
+        //instead just use library.size() for every instance of libraryCount
 
         int input;
 
@@ -35,14 +36,14 @@ public class Main {
             scnr.nextLine();
 
             if(input == 1){ //List all
-                for(int i = 0; i < libraryCount; i++){
+                for(int i = 0; i < library.size(); i++){
                     Book current = library.get(i);
                     System.out.println(current);
                 }
             }else if(input == 2){ //Search by title
                 System.out.print("Enter Name: ");
                 String lookFor = scnr.nextLine();
-                for(int i = 0; i < libraryCount; i++){
+                for(int i = 0; i < library.size(); i++){
                     Book current = library.get(i);
                     String currName = current.getName();
                     if(currName.equalsIgnoreCase(lookFor)){
@@ -52,7 +53,7 @@ public class Main {
             }else if(input == 3){ //search by author
                 System.out.println("Enter Author's Name: ");
                 String lookFor = scnr.nextLine();
-                for(int i = 0; i < libraryCount; i++){
+                for(int i = 0; i < library.size(); i++){
                     Book current = library.get(i);
                     String currName = current.getAuthor();
                     if(currName.equalsIgnoreCase(lookFor)){
@@ -65,7 +66,7 @@ public class Main {
                 int year;
                 String publisher;
                 String isbn;
-                libraryCount++;
+
                 boolean valid = false;
 
                 scnr.nextLine();
@@ -130,15 +131,23 @@ public class Main {
 
 
             }else if(input == 6){ // delete
-                System.out.println("Enter ISBN of book to delete: ");
-                String lookFor = scnr.next();
 
-                for(int i = 0; i < libraryCount; i++){
+                System.out.println("Enter ISBN of book to delete: ");
+                String lookFor = scnr.nextLine().replaceAll("[-\\s]","");
+
+                boolean found = false;
+
+                for(int i = 0; i < library.size(); i++){
                     Book current = library.get(i);
-                    String currISBN = current.getISBN();
-                    if(currISBN == lookFor){ //if ISBN match
-                        library.remove(current); //remove object from library arraylist
+                    if(current.getISBN().equals(lookFor)) {
+                        library.remove(i);
+                        found = true;
+                        System.out.println("Book deleted successfully!");
+
                     }
+                }
+                if(!found){
+                    System.out.print("No book found with that ISBN please try again or make sure the ISBN is correct.");
                 }
 
             }else if(input == 7){

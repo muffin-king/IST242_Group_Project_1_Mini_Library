@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -66,6 +67,7 @@ public class Main {
                 String author;
                 int year;
                 String publisher;
+                String inputISBN;
                 String isbn;
 
                 boolean valid = false;
@@ -94,7 +96,8 @@ public class Main {
                 }while(!valid);
                 do{
                     System.out.print("Enter ISBN: ");
-                    isbn = scnr.nextLine();
+                    inputISBN = scnr.nextLine();
+                    isbn = inputISBN.replaceAll("[^0-9]", "");
                     valid = isbnValidation(isbn);
                 }while(!valid);
 
